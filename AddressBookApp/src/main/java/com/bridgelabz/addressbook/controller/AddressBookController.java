@@ -3,6 +3,7 @@ package com.bridgelabz.addressbook.controller;
 import com.bridgelabz.addressbook.entity.Address;
 import com.bridgelabz.addressbook.services.AddressBookServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +26,7 @@ public class AddressBookController {
     //Use @GetMapping Annotation
     @GetMapping(value = {"", "/"})
     //Create a method to get the message
-    public String getMessage(){
+    public String getMessage() {
         //Return the message
         return "Welcome to Address Book!";
     }
@@ -33,7 +34,7 @@ public class AddressBookController {
     //Use @PostMapping Annotation
     @PostMapping("/create")
     //Create a method to create record
-    public String createRecord(@RequestBody Address address){
+    public ResponseEntity<String> createRecord(@RequestBody Address address) {
         //return the value
         return useService.addRecord(address);
     }
@@ -41,16 +42,33 @@ public class AddressBookController {
     //Use @GetMapping Annotation to handle all request
     @GetMapping("/all")
     //create a method to get the all records
-    public List<Address> getAllAddress(){
+    public ResponseEntity<List<Address>> getAllAddress() {
         //Return the value
         return useService.findAllRecord();
     }
 
     //Use @GetMapping Annotation
-    @GetMapping("/name/{name}")
+    @GetMapping("/get/{name}")
     //Create a method to get the record by name
-    public Address getDetailByName(@PathVariable String name){
+    public ResponseEntity<Address> getDetailByName(@PathVariable String name) {
         //Return the value
         return useService.findRecordByName(name);
     }
+
+    //Use @DeleteMapping Annotation
+    @DeleteMapping("/delete/{name}")
+    //Create a method to delete record by name
+    public ResponseEntity<String> deleteByName(@PathVariable String name) {
+        //return the value
+        return useService.deleteRecord(name);
+    }
+
+    //Use @PutMapping Annotation
+    @PutMapping("/update/{name}")
+    //Create a method to update record by name
+    public ResponseEntity<String> updateRecordByName(@PathVariable String name, @RequestBody Address address) {
+        //return the value
+        return useService.updateRecord(name, address);
+    }
+
 }
