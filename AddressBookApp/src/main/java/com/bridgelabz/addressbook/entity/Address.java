@@ -2,6 +2,7 @@ package com.bridgelabz.addressbook.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+
+//Use @table Annotation and set the name
+@Table(name = "Address")
 
 //Create a class Address and make it Entity class
 public class Address {
